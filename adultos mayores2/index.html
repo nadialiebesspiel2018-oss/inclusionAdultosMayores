@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inclusión Digital Mayores</title>
+  <meta name="description" content="Recursos simples para la inclusión digital de personas mayores: videotutoriales, descargas, foro y asistencia." />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #1a1a1a;
+      --muted: #4d4d4d;
+      --brand: #2d6cdf;
+      --brand-contrast: #ffffff;
+      --card: #f6f7f9;
+      --focus: #ffbf47;
+      --radius: 16px;
+      --shadow: 0 8px 24px rgba(0,0,0,.08);
+      --font-size: 18px;
+      --line-height: 1.6;
+    }
+   .contrast {
+  --bg: #e3f2fd;   
+  --fg: #0e0d0d;       /* texto blanco */
+  --muted: #0e0d0d;   /* verde claro para zonas secundarias */
+  --brand: #e3f2fd;    /* celeste (marca o acento) */
+  --brand-contrast:#e3f2fd;   
+  --card: #ffffff;     /* tarjetas blancas */
+  --focus: #e3f2fd;   /* celeste al enfocar */
+}
+
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
+      background: var(--bg); color: var(--fg);
+      font-size: var(--font-size); line-height: var(--line-height);
+    }
+    a { color: var(--brand); }
+    a:focus, button:focus, input:focus, select:focus, textarea:focus {
+      outline: 3px solid var(--focus); outline-offset: 2px;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    header {
+      position: sticky; top: 0; z-index: 1000; background: var(--bg);
+      box-shadow: var(--shadow);
+    }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 20px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--fg); }
+    .brand-logo {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--brand);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--brand-contrast); font-weight: 800;
+    }
+    nav { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-btn {
+      border: 0; padding: 10px 14px; border-radius: var(--radius);
+      background: var(--card); color: var(--fg); cursor: pointer; font-weight: 600;
+    }
+    .nav-btn[aria-current="page"], .nav-btn:hover {
+      background: var(--brand); color: var(--brand-contrast);
+    }
+    .a11y-tools { display: flex; gap: 8px; align-items: center; }
+   
+    .hero { padding: 40px 20px; background: linear-gradient(180deg, var(--card), transparent); }
+    .hero h1 { font-size: clamp(24px, 6vw, 36px); margin: 0 0 12px; } 
+    .hero p { margin: 0; color: var(--muted); }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .card {
+      background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px;
+    }
+    .card h3 { margin-top: 0; }
+    .card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      border: 0; cursor: pointer; padding: 12px 16px;
+      border-radius: 12px; font-weight: 700;
+    }
+    .btn-primary { background: var(--brand); color: var(--brand-contrast); }
+    .btn-secondary { background: var(--bg); border: 2px solid var(--brand); color: var(--brand); }
+    section { padding: 32px 20px; }
+    section h2 { font-size: clamp(22px, 3vw, 32px); margin: 0 0 12px; }
+    .muted { color: var(--muted); }
+    .video-list { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .video { background: var(--bg); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+    .video iframe { width: 100%; aspect-ratio: 16/9; border: 0; }
+    .video .v-body { padding: 12px; }
+    .downloads { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .dl { display: flex; gap: 12px; align-items: start; background: var(--bg); border-radius: 12px; padding: 12px; box-shadow: var(--shadow); }
+    .dl .icon { font-size: 28px; }
+    .forum { display: grid; gap: 12px; }
+    .topic { background: var(--bg); border-radius: 12px; padding: 12px; box-shadow: var(--shadow); }
+    .topic h4 { margin: 0 0 4px; }
+    .topic small { color: var(--muted); }
+    footer { padding: 24px 20px; background: var(--card); color: var(--muted); text-align: center; }
+    .skip-link { position: absolute; left: -9999px; }
+    .skip-link:focus {
+      position: static; margin: 8px; padding: 8px 12px;
+      background: var(--brand); color: var(--brand-contrast); border-radius: 8px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto; animation: none !important; transition: none !important; }
+    }
+
+    .hero p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.5rem;      /* Aumenta el tamaño del texto */
+  line-height: 1.7;       /* Mejora la legibilidad */
+  font-weight: 300;       /* Lo hace un poco más grueso */
+  text-align: center;     /* Lo centra debajo del título */
+}
+
+.hero {
+  text-align: center;
+}
+header {
+  background-color: white;
+  border-left: 20px solid #92dbb1;
+  border-right: 20px solid #92dbb1;
+}
+
+nav a, .navbar a {
+  color: #92dbb1;
+}
+
+nav a:hover, .navbar a:hover {
+  color: #004d25; /* tono más oscuro de verde al pasar el mouse */
+}
+
+/* === Menú verde === */
+.nav-btn {
+  border: none;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: #92dbb1; /* Verde suave */
+  color: rgb(14, 13, 13);        /* Texto blanco */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+
+
+
+#contacto {
+  background-color: #92dbb1;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 24px;
+}
+
+body {
+  background-color: #92dbb1;
+  margin: 0;
+  padding: 0;
+}
+
+
+main {
+  background-color: white;
+  width: 90%; /* Se adapta al ancho del celular */
+  max-width: 400px; /* No se hace demasiado ancho en pantallas grandes */
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+  </style>
+</head>
+<body>
+  <a href="#contenido" class="skip-link">Saltar al contenido</a>
+  <header role="banner">
+    <div class="topbar">
+      <a class="brand" href="#inicio">
+        <span class="brand-logo" aria-hidden="true">ID</span>
+        <span><strong>Inclusión Digital</strong> Mayores</span>
+      </a>
+      <nav>
+        <button class="nav-btn" onclick="goto('#videos')">Videos</button>
+        <button class="nav-btn" onclick="goto('#descargas')">Descargas</button>
+        <button class="nav-btn" onclick="goto('#foro')">Foro</button>
+        <button class="nav-btn" onclick="goto('#contacto')">Contacto</button>
+      </nav>
+      <div class="a11y-tools">
+        <button class="tool-btn" id="dec-font" title="Letra -">A−</button>
+        <button class="tool-btn" id="inc-font" title="Letra +">A＋</button>
+        
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido" class="container">
+    <section id="inicio" class="hero">
+      <h1>Aprendé paso a paso, a tu ritmo</h1>
+      <p class="muted">Videos simples, materiales descargables y un foro amigable para que puedas resolver todas tus dudas.</p>
+
+  <!-- Imagen principal -->
+<div style="margin:24px 0">
+  <img src="img/1.jpg"
+       alt="Adultos mayores usando tablet y celular"
+       style="width:100%; 
+              border-radius:26px; 
+              box-shadow:0 8px 24px rgba(0,0,0,.1); 
+              border:2px solid black;" />
+</div>
+
+
+
+
+      <div class="grid" style="margin-top:16px">
+        <div class="card">
+          <h2>VideosTutoriales</h2>
+           <p>Te recomendamos comenzar por los <strong>Videos Instructivos</strong>, donde encontrarás todos los tutoriales necesarios.</p>
+         <div class="actions" style="display:flex; justify-content:center; margin-top:12px;">
+          <a class="btn btn-primary" href="#videos">▶ Ver videos</a>
+              </div>
+
+        </div>
+
+        <div class="card">
+          <h2>Descargas útiles</h2>
+           <p>Te recomendamos  <strong>Descagar PDFs</strong>, donde tendras cuadernillos de estimulación, ejercicios prácticos para reforzar lo aprendido y algunos videos de redes como apoyo complementario.</p>
+        <div class="actions" style="display:flex; justify-content:center; margin-top:12px;">
+              <a class="btn btn-primary" href="#descargas">⬇ Descargas</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Necesito ayuda</h2>
+          <p>Si tenés dudas, entrá al foro o contactanos directamente por WhatsApp o por correo.</p>
+          <div class="actions" style="display:flex; justify-content:center; margin-top:12px;">
+            <a class="btn btn-primary" href="#foro">💬 Entrar al foro</a>
+            <a class="btn btn-primary" href="#contacto">📞 Contacto</a>
+            
+          </div>
+        </div>
+       
+      </div>
+    </section>
+
+    <!-- Videos -->
+    <section id="videos">
+      <h2>🎥 Videos Instructivos</h2>
+      <p class="muted">Elegí un video y hacé clic para reproducir.</p>
+      <div class="video-list">
+        <article class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/vaEnwqG4mFE?si=ZHOFOEhLkPDXuuvT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>WhatsApp: Instalación</h3>
+            <p class="muted">Aprendé a Instalar WhatsApp. </p>
+          </div>
+        </article>
+        <article class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/Q36e90Af7vk?si=kopbr2CYiqbdafTp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>WhatsApp: mensajes y videollamadas</h3>
+            <p class="muted">Aprende a enviar mensajes y hacer videollamadas por WhatsApp</p>
+          </div>
+        </article>
+        <article class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/-yjC-9xRskw?si=37eUQYEEGB9_K3bA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3> Zoom - Instalación y creación de cuenta</h3>
+            <p class="muted">Aprende a Descargar la app, Crear cuenta, Crear una reunión, invitar con link o código y mucho mas.
+           
+          </div>
+        </article>
+
+          <article class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/0gHooKsZ7vY?si=Kk3bYVXS8GGYR47l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3> Zoom - Funciones principales dentro de una reunión</h3>
+            <p class="muted"> Aprende a seleccionar solo una ventana o parte de la pantalla para mostrar, Grabar la reunión y Seguridad.</p>
+          </div>
+        </article>
+
+         <article class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/peH1hjZMiVE?si=gEEwGulYLhahAtm0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3> Youtube - Primera Parte</h3>
+            <p class="muted"> Aprende a navegar por primera vez en la aplicación, Conocer el panel principal (inicio, explorar videos, ,musica y canales), Buscar y reproducir videos de forma sencilla.</p>
+          </div>
+        </article>
+
+         <article class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/MK16VGs_MAs?si=vUbCyKIu8Gb_QeLM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3> Youtube - Segunda Parte</h3>
+            <p class="muted"> Aprende a Usar el buscador para encontrar contenido, Ver videos relacionados, Ajustar calidad, pantalla (cine/ completa) y subtítulos. Reproducir, adelantar/atrasar y Acceder con Gmail.</p>
+          </div>
+        </article>
+
+
+          <article class="video">
+         <iframe width="560" height="315" src="https://www.youtube.com/embed/s_uoQhuZ6c8?si=ma9NjbgdML0smV32" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3> Prevenir riesgos en redes sociales</h3>
+            <p class="muted"> Como Prevenir riesgos en redes sociales y mucho más.</p>
+          </div>
+        </article>
+
+          <article class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/p6p6MrvlvGI?si=6NWEl2wTBLXSRg_F" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3> Instalar INSTAGRAM</h3>
+            <p class="muted"> Instalar INSTAGRAM  y Crear cuenta.</p>
+          </div>
+        </article>
+
+      <article class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/L5enO_JBgDo?si=Ga4mYJ-J8y9MArZW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3> Qué es Instagram y cómo usarlo?</h3>
+            <p class="muted"> Qué es Instagram, cómo usarlo y mucho más.</p>
+          </div>
+      </article>
+
+      <article class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/9PoURXcrprM?si=WRdkj4ajyu89p3G3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3> Home banking  - Como usarlo</h3>
+            <p class="muted"> Home Banking la forma de entrar a tu banco desde tu casa.</p>
+          </div>
+      </article>
+
+      <article class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/BFHccmjhx9k?si=-B4V1iS0ZbEYsz23" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>Instalación y configuración de Facebook</h3>
+            <p class="muted"> Instalación, configuración de Facebook y mucho más.</p>
+          </div>
+      </article>
+
+      <article class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/kPHlkxdu65c?si=bvqUKE8ib4rErE3J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>Estafas financieras</h3>
+            <p class="muted">La importancia de cuidarse de las estafas financieras: no compartas tu clave ni datos personales con nadie.</p>
+          </div>
+      </article>
+
+      <article class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ffCNVAs6vCE?si=10e5ySy7Bw4LVSWr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>          <div class="v-body">
+            <h3>VideoTurorial GMAIL</h3>
+            <p class="muted">En esta sección veremos: Crear una cuenta en Gmail, Completar el formulario de registro, Verificar tu número de celular, Seguridad, Redactar y enviar emails.</p>
+          </div>
+      </article>
+
+           <article class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/2fb-gf65z0E?si=bBXXrI1EMGfzXp3K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>Cajero Automático</h3>
+            <p class="muted">En esta sección veremos todo lo que podes hacer: Como retirar dinero, consultar tu saldo, cambiar la clave y hacer pagos sin ir a la ventanilla del banco.</p>
+          </div>
+      </article>
+
+              <article class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/GMyoDMdN0TE?si=HdcCXEt0POVlVWbw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>ANSES - Crear tu Clave de seguridad</h3>
+            <p class="muted">En esta sección veremos cómo crear tu Clave de la Seguridad Social.</p>
+          </div>
+      </article>
+
+             <article class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZpTlBYUz6XM?si=HycBw9weMLwrlXhx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>ANSES - Recuperar clave de Seguridad</h3>
+            <p class="muted">En esta sección veremos cómo RECUPERAR tu Clave de la Seguridad Social.</p>
+          </div>
+      </article>
+       <article class="video">
+      <iframe 
+    title="NUEVA APP de PAMI 2025 | Cómo registrarte, descargarla y usarla paso a paso en su celular" 
+    src="https://www.youtube.com/embed/EK7kWuL_IUg" 
+    allowfullscreen
+    width="560" height="315">
+  </iframe>
+  <div class="v-body">
+    <h3>Nueva APP de PAMI 2025 - Cómo registrarte, descargarla y usarla paso a paso en su celular</h3>
+    <p class="muted"> Con la app podrás acceder a tu cartilla médica digital, portar tu credencial en el celular, gestionar recetas electrónicas y solicitar turnos o emergencias online de manera rápida y sencilla</p>
+  </div>
+        </article>
+
+
+
+
+   </div>
+    </section>
+
+    <!-- Canales de Youtube -->
+    <section id="videos">
+      <h2>🎥 Canales de Videos Youtube</h2>
+      <p class="muted">Elegí un canal y hacé clic para reproducir.</p>
+      <div class="video-list">
+        <article class="video">
+          <iframe title="Noticias en Vivo" 
+        src="https://www.youtube.com/embed/Uo-ziJhrTvI" allowfullscreen width="560" height="315"> </iframe>
+          <div class="v-body">
+            <h3>C5N Noticias en Vivo</h3>
+            <p class="muted">Cobertura en tiempo real de noticias locales e internacionales</p>
+          </div>
+        </article>
+
+        <article class="video">
+          <iframe title="Noticias " src="https://www.youtube.com/embed/cb12KmMMDJA" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>TN Noticias en Vivo</h3>
+            <p class="muted">Cobertura en tiempo real de noticias locales e internacionales</p>
+            
+          </div>
+        </article>
+        <article class="video">
+          <iframe title="Recetas de Cocina" src="https://www.youtube.com/embed?listType=user_uploads&list=PaulinaCocina" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>Cocina con Paulina Cocina</h3>
+            <p class="muted">Recetas fáciles y rápidas, paso a paso, para todo tipo de platos</p>
+          </div>
+        </article>
+
+         <article class="video">
+          <iframe title="Tejidos y Crochet" src="https://www.youtube.com/embed?listType=user_uploads&list=CanalCrochet" allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>Crochet y Manualidades</h3>
+            <p class="muted">Tutoriales de crochet y manualidades paso a paso</p>
+          </div>
+        </article>
+
+         <article class="video">
+          <iframe title="Estimulación Cognitiva para Adultos Mayores" src="https://www.youtube.com/embed/videoseries?list=PLDyAMek9bKznEwssVmmVGqh9FIbLOUTe9"  allowfullscreen></iframe>
+          <div class="v-body">
+            <h3>Estimulación Cognitiva para Adultos Mayores</h3>
+            <p class="muted">Ejercicios para mantener la mente activa</p>
+          </div>
+        </article>
+        
+  <article class="video">
+  <iframe 
+    title="Juegos y Dinámicas para Adultos Mayores" 
+    src="https://www.youtube.com/embed/videoseries?list=PLDyAMek9bKzkZpZBLWZcqUjMMXyN-IvE2" 
+    allowfullscreen>
+  </iframe>
+  <div class="v-body">
+    <h3>Juegos y Dinámicas</h3>
+    <p class="muted">Actividades recreativas para adultos mayores</p>
+  </div>
+</article>
+
+
+<article class="video">
+  <iframe 
+    title="Música y Movimiento para Adultos Mayores" 
+    src="https://www.youtube.com/embed/videoseries?list=PLmghfWpwCLw0bBRYeWMmQmUTuye1-_XM6" 
+    allowfullscreen>
+  </iframe>
+  <div class="v-body">
+    <h3>Música y Movimiento</h3>
+    <p class="muted">Actividades para estimular cuerpo y mente</p>
+  </div>
+</article>
+
+
+<article class="video">
+  <iframe 
+    title="Videos Para Ti!" 
+    src="https://www.youtube.com/embed/videoseries?list=PLrbLhIQCUA1DrBi6R0l6BQuvEkps4YNkg" 
+    allowfullscreen>
+  </iframe>
+  <div class="v-body">
+    <h3>Decoraciones para el Hogar</h3>
+    <p class="muted">Ideas rápidas, fáciles y económicas</p>
+  </div>
+</article>
+
+
+<article class="video">
+  <iframe 
+    title="Ideas Para Organizar Tu Casa" 
+    src="https://www.youtube.com/embed/videoseries?list=PLTxJW3S51yEtKE7IBZsgIO_PJlpD0LWmA" 
+    allowfullscreen>
+  </iframe>
+  <div class="v-body">
+    <h3>Organización del Hogar</h3>
+    <p class="muted">Manualidades y reciclaje para el hogar</p>
+  </div>
+</article>
+
+
+      </div>
+    </section>
+
+
+  <!-- Descargas -->
+<section id="descargas">
+  <h2>📂 Materiales para descargar (PDF)</h2>
+  <div class="downloads">
+    <div class="dl">
+      <div class="icon">📘</div>
+      <div>
+        <h3>Guía de Instagram</h3>
+        <a class="btn btn-primary" href="https://drive.google.com/uc?export=download&id=18TnNYYVyTnj1x2jlb-Zxym2e_k9s6rlX" target="_blank" rel="noopener">Descargar Instagram</a>
+
+      </div>
+    </div>
+    <div class="dl">
+      <div class="icon">📘</div>
+      <div>
+        <h3>Redes Sociales</h3>
+        <a class="btn btn-primary" href="https://drive.google.com/uc?export=download&id=1ZcX3C6z7fKgN2H5lnICp1K1OxOuuCa4b" target="_blank" rel="noopener">Descargar Redes Sociales</a>
+      </div>
+    </div>
+    <div class="dl">
+      <div class="icon">📘</div>
+      <div>
+        <h3>Estimulación Para Adultos Mayores</h3>
+        <a class="btn btn-primary" href="https://drive.google.com/uc?export=download&id=1TnDo7ZD3DYQ9AVlk2EeDEnFti2q22iPc" target="_blank" rel="noopener">Descargar Estimulación</a>
+      </div>
+    </div>
+  
+    <div class="dl">
+      <div class="icon">📘</div>
+      <div>
+        <h3>Cuadernillo de Estimulación</h3>
+        <a class="btn btn-primary" href="https://drive.google.com/uc?export=download&id=1IG0Ev83kuZcw6VTe4UPtLO-A97zg_Phe" target="_blank" rel="noopener">Descargar Cuadernillo</a>
+      </div>
+    </div>
+  
+  
+  </div>
+</section>
+
+
+    <!-- Foro -->
+    <section id="foro">
+  <h2>💬 Foro</h2>
+  <form id="form-foro" class="card" style="margin-bottom:16px;">
+    <label for="nombre">Tu nombre</label><br />
+    <input id="nombre" name="nombre" type="text" required 
+           style="width:100%; padding:8px; border-radius:8px; border:1px solid #ccc; margin-bottom:12px;" />
+
+    <label for="mensaje">Tu mensaje</label><br />
+    <textarea id="mensaje" name="mensaje" rows="3" required 
+              style="width:100%; padding:8px; border-radius:8px; border:1px solid #ccc; margin-bottom:12px;"></textarea>
+
+    <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+  </form>
+
+  <div id="foroMensajes" 
+       style="max-height:300px; overflow-y:auto; padding:12px; border:1px solid #ccc; border-radius:10px; background:#fafafa;">
+  </div>
+
+  <button id="limpiarForo" 
+          style="margin-top:12px; background:#6c757d; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">
+    🧹 Limpiar todo el foro
+  </button>
+</section>
+
+<script>
+const form = document.getElementById("form-foro");
+const foroMensajes = document.getElementById("foroMensajes");
+const limpiarBtn = document.getElementById("limpiarForo");
+
+// Cargar mensajes guardados
+let mensajes = JSON.parse(localStorage.getItem("foroMensajes") || "[]");
+mensajes.forEach(m => agregarMensaje(m.nombre, m.texto, false));
+
+// Enviar nuevo mensaje
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const nombre = document.getElementById("nombre").value.trim();
+  const mensaje = document.getElementById("mensaje").value.trim();
+  if (!nombre || !mensaje) return;
+  agregarMensaje(nombre, mensaje, true);
+  form.reset();
+});
+
+// Agregar mensaje al foro
+function agregarMensaje(nombre, texto, guardar = false) {
+  const topic = document.createElement("div");
+  topic.classList.add("topic");
+  topic.style.marginBottom = "10px";
+  topic.style.padding = "8px";
+  topic.style.borderBottom = "1px solid #ddd";
+
+  topic.innerHTML = `
+    <h4>🗣️ ${nombre}</h4>
+    <small>hace unos segundos</small>
+    <p class="texto">${texto}</p>
+    <button class="editar" style="background:#ffc107; border:none; padding:4px 8px; border-radius:6px; cursor:pointer;">Editar</button>
+    <button class="eliminar" style="background:#dc3545; border:none; padding:4px 8px; border-radius:6px; color:#fff; cursor:pointer;">Eliminar</button>
+  `;
+
+  // Botón eliminar
+  topic.querySelector(".eliminar").addEventListener("click", () => {
+    topic.remove();
+    mensajes = mensajes.filter(m => !(m.nombre === nombre && m.texto === texto));
+    localStorage.setItem("foroMensajes", JSON.stringify(mensajes));
+  });
+
+  // Botón editar
+  topic.querySelector(".editar").addEventListener("click", () => {
+    const p = topic.querySelector(".texto");
+    const nuevoTexto = prompt("Editar mensaje:", p.textContent);
+    if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
+      mensajes = mensajes.map(m => 
+        m.nombre === nombre && m.texto === texto ? { nombre, texto: nuevoTexto } : m
+      );
+      p.textContent = nuevoTexto;
+      localStorage.setItem("foroMensajes", JSON.stringify(mensajes));
+    }
+  });
+
+  foroMensajes.prepend(topic);
+
+  // Guardar en localStorage
+  if (guardar) {
+    mensajes.push({ nombre, texto });
+    localStorage.setItem("foroMensajes", JSON.stringify(mensajes));
+  }
+}
+
+// Limpiar todo el foro
+limpiarBtn.addEventListener("click", () => {
+  if (confirm("¿Seguro que querés borrar todos los mensajes del foro?")) {
+    localStorage.removeItem("foroMensajes");
+    foroMensajes.innerHTML = "";
+    mensajes = [];
+  }
+});
+</script>
+
+
+    <!-- Contacto -->
+    <section id="contacto">
+      <h2>📧 Contacto</h2>
+      <p>Escribinos a <a href="mailto:hola@inclusionmayores.org">hola@inclusionmayores.org</a> o WhatsApp <a href="tel:+5492610000000">+54 9 261 000 0000</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Inclusión Digital Mayores</p>
+  </footer>
+
+  <script>
+    function goto(id){ document.querySelector(id)?.scrollIntoView({behavior:'smooth'}); }
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Accesibilidad
+    (function(){
+      const root = document.documentElement;
+      const incBtn = document.getElementById('inc-font');
+      const decBtn = document.getElementById('dec-font');
+      const contrastBtn = document.getElementById('contrast');
+      const FONTS = [16,18,20,22,24]; let current=18;
+      function setFont(px){ root.style.setProperty('--font-size', px+'px'); }
+      incBtn.onclick=()=>{ if(FONTS.includes(current)){ let i=FONTS.indexOf(current); if(i<FONTS.length-1){current=FONTS[i+1]; setFont(current);} } };
+      decBtn.onclick=()=>{ if(FONTS.includes(current)){ let i=FONTS.indexOf(current); if(i>0){current=FONTS[i-1]; setFont(current);} } };
+      contrastBtn.onclick=()=>{ document.body.classList.toggle('contrast'); };
+    })();
+    // Foro localStorage
+    (function(){
+      const form=document.getElementById('form-foro'),list=document.getElementById('lista-temas'),status=document.getElementById('status');
+      const KEY='foro-temas';
+      function load(){
+        const data=JSON.parse(localStorage.getItem(KEY)||'[]'); list.innerHTML='';
+        data.forEach((t,idx)=>{ let el=document.createElement('article'); el.className='topic';
+          el.innerHTML=`<h4>${t.tema}</h4><small>por ${t.nombre} · ${new Date(t.ts).toLocaleString()}</small><p>${t.mensaje}</p>`;
+          list.appendChild(el); });
+      }
+      form.onsubmit=(e)=>{ e.preventDefault(); const fd=new FormData(form);
+        const nombre=fd.get('nombre'),tema=fd.get('tema'),mensaje=fd.get('mensaje');
+        if(!nombre||!tema||!mensaje){ status.textContent='Completá todos los campos.'; return;}
+        const data=JSON.parse(localStorage.getItem(KEY)||'[]'); data.unshift({nombre,tema,mensaje,ts:Date.now()});
+        localStorage.setItem(KEY,JSON.stringify(data)); form.reset(); status.textContent='¡Publicado!'; load();
+      };
+      load();
+    })();
+  </script>
+</body>
+</html>
